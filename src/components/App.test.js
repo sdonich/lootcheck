@@ -1,14 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
+import toJson from 'enzyme-to-json'; 
 
 import App from './App';
+import Wallet from './Wallet';
 
 describe('App', () => {
   const app = shallow(<App />);
   
   test('renders properly', () => {
-    const tree = renderer.create(<App />).toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(toJson(app)).toMatchSnapshot();
+  });
+  test('contains a connected  Wallet component', () => {
+    expect(app.find(Wallet).exists()).toBe(true);
   });
 });

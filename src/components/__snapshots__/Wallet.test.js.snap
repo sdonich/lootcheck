@@ -6,6 +6,7 @@ exports[`Wallet renders properly 1`] = `
     className="balance"
   >
     Wallet balance: 
+    20
   </h3>
 </div>
 `;
