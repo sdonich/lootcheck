@@ -6,7 +6,7 @@ import { Loot } from './Loot';
 
 describe('Loot', () => {
   const fetchBitcoinMock = jest.fn();
-  const props = { balance: 10, bitcoin: {} }
+  let props = { balance: 10, bitcoin: {} }
   let loot = shallow(<Loot {...props} />);
   test('render properly', () => {
     expect(toJson(loot)).toMatchSnapshot();
@@ -20,6 +20,25 @@ describe('Loot', () => {
 
     test('dispatchers the `fetchBitcoin()` method it receives from props', () => {
       expect(fetchBitcoinMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('when there are valid bitcoin props', () => {
+    beforeEach(() => {
+      props = {
+        balance: 10,
+        bitcoin: {
+          bpi: {
+            USD: {
+              rate: '1,000'
+            }
+          }
+        }
+      };
+      loot = shallow(<Loot {...props} />);
+    });
+    test('displays the correct bitcoin value', () => {
+      expect(loot.find('h3').text()).toBe('Bitcoin balance: 0.01');
     });
   });
 });
