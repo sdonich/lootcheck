@@ -5,9 +5,9 @@ import toJson from 'enzyme-to-json';
 import { Wallet } from './Wallet';
 
 describe('Wallet', () => {
-  const mockDeposit = jest.fn();
-  const mockWithdraw = jest.fn();
-  const props = { balance: 20, deposit: mockDeposit, withdraw: mockWithdraw };
+  const depositMock = jest.fn();
+  const withdrawMock = jest.fn();
+  const props = { balance: 20, deposit: depositMock, withdraw: withdrawMock };
   const wallet = shallow(<Wallet {...props} />);
 
   test('renders properly', () => {
@@ -36,7 +36,7 @@ describe('Wallet', () => {
         wallet.find('.btn-deposit').simulate('click');
       });
       test('dispatches the `deposit()` it receives from props with the local balance', () => {
-        expect(mockDeposit).toHaveBeenCalledWith(parseInt(userBalance, 10));
+        expect(depositMock).toHaveBeenCalledWith(parseInt(userBalance, 10));
       });
     });
 
@@ -44,7 +44,7 @@ describe('Wallet', () => {
       beforeEach(() => wallet.find('.btn-withdraw').simulate('click'));
 
       test('dispathces the `withdraw()` it receives from props with the local balance', () => {
-        expect(mockWithdraw).toHaveBeenCalledWith(parseInt(userBalance, 10));
+        expect(withdrawMock).toHaveBeenCalledWith(parseInt(userBalance, 10));
       });
     });
   });
